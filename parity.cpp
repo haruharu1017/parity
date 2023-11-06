@@ -2,6 +2,7 @@
 // List any collaborators and write your name here
 
 //Mengxi He
+// Fulai Lu, a sophormore student, helped me
 
 #include "parity.h" // Do NOT add any additional libraries/namespaces!
  
@@ -154,44 +155,33 @@ void Parity::insert(int val)
 
 size_t Parity::remove(int val)
 {
-  int count = 0;
   if (val % 2 == 0)
-  {
-    for (int i = 0; i < nEven_; i++)
     {
-      if(evens_[i] == val)
-      count++;
-    }
-    int e = 0;
-    int *tempEven = new int[nEven_];
-    for (int x = 0; x < nEven_; x++)
-    {
-      if (val != evens_[x])
-      tempEven[e++] = evens_[x];
-    }
-      nEven_ -= count;
+      int e = 0;
+      int *tempEven = new int[nEven_-1];
+      for (int x = 0; x < nEven_; x++)
+      {
+        if (val != evens_[x])
+          tempEven[e++] = evens_[x];
+      }
+      nEven_--;
       delete evens_;
       evens_=tempEven;
     }
   else
   {
-    for (int i = 0; i < nOdd_; i++)
-    {
-      if(odds_[i] == val)
-      count++;
-    }
     int o = 0;
-    int *tempOdd = new int[nOdd_];
+    int *tempOdd = new int[nOdd_-1];
     for (int x = 0; x < nOdd_; x++)
     {
       if (val != odds_[x])
-      tempOdd[o++] = odds_[x]; 
+        tempOdd[o++] = odds_[x];
     }
-    nOdd_ -= count;
+    nOdd_--;
     delete odds_;
     odds_=tempOdd;
     }
-  return count;
+  return val;
 }
 
 
@@ -224,7 +214,7 @@ int main() {
   Parity p1;
   Parity p(arr, 11); 
   p.insert(16);
-  p.insert(11);
+  p.insert(19);
   cout << p << endl; 
   cout << "\nmin: " << p.min();
   cout << "\nmax: " << p.max();
@@ -233,10 +223,10 @@ int main() {
   else
   cout << "\nEVEN!";
   p1 = p;
-  cout << p1 << endl;
-  cout << "\n(1)removed: " << p.remove(2) << endl;
+  cout << p1;
+  cout << p.remove(2) << endl;
   cout << p << endl;
-  cout << "\n(2)removed: " << p.remove(11) << endl;
+  p.remove(-1);
   cout << p << endl;
   return 0;
 }
